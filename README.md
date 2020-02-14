@@ -1,21 +1,5 @@
 # Angular Bootstrap Calendar
 
-[![project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)](https://img.shields.io/badge/project-unmaintained-red.svg)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mattlewis92/angular-bootstrap-calendar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Build Status](https://travis-ci.org/mattlewis92/angular-bootstrap-calendar.svg?branch=master)](https://travis-ci.org/mattlewis92/angular-bootstrap-calendar)
-[![codecov](https://codecov.io/gh/mattlewis92/angular-bootstrap-calendar/branch/master/graph/badge.svg)](https://codecov.io/gh/mattlewis92/angular-bootstrap-calendar)
-[![Bower version](https://badge.fury.io/bo/angular-bootstrap-calendar.svg)](http://badge.fury.io/bo/angular-bootstrap-calendar)
-[![npm version](https://badge.fury.io/js/angular-bootstrap-calendar.svg)](http://badge.fury.io/js/angular-bootstrap-calendar)
-[![devDependency Status](https://david-dm.org/mattlewis92/angular-bootstrap-calendar/dev-status.svg)](https://david-dm.org/mattlewis92/angular-bootstrap-calendar?type=dev)
-[![GitHub issues](https://img.shields.io/github/issues/mattlewis92/angular-bootstrap-calendar.svg)](https://github.com/mattlewis92/angular-bootstrap-calendar/issues)
-[![GitHub stars](https://img.shields.io/github/stars/mattlewis92/angular-bootstrap-calendar.svg)](https://github.com/mattlewis92/angular-bootstrap-calendar/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/mattlewis92/angular-bootstrap-calendar/master/LICENSE)
-
-Like what you see here? [Hire me](https://mattlewis.me/?section=hire-me&utm_source=github&utm_medium=banner&utm_campaign=contracting)! 👨‍💻
-
-## 🚨🚨🚨 Project status 🚨🚨🚨
-Due to the growing popularity of angular 2 and beyond, this project is considered feature complete and no further work will be done on it. All dev time is now being devoted to the projects successor [`angular-calendar`](https://github.com/mattlewis92/angular-calendar). However, you are welcome to fork and modify this repo as you please. 
-
 ## Table of contents
 
 - [Demo](#demo)
@@ -27,20 +11,7 @@ Due to the growing popularity of angular 2 and beyond, this project is considere
 
 ## Demo
 
-https://mattlewis92.github.io/angular-bootstrap-calendar/
-
-## About
-
-This plugin is an AngularJS port of the original jQuery bootstrap calendar that can be found here:
-http://bootstrap-calendar.azurewebsites.net/
-
-The layout and functionality is intended to be exactly the same, but without the overhead of including jQuery just for a calendar.
-
-All credits for the UI/UX and the less files of the calendar go to the original author.
-
-Pull requests are welcome.
-
-Looking for an angular 2.0+ version of this library? Check this out: https://github.com/mattlewis92/angular-calendar
+https://murek85.github.io/angularjs-calendar/
 
 ## Installation
 
@@ -58,14 +29,14 @@ The calendar has a few dependencies, these are as follows, and must be included 
 You can install through bower:
 
 ```
-bower install --save angular-bootstrap-calendar
+bower install --save angularjs-calendar
 ```
 
 You will then need to include the JS and CSS files for the plugin:
 
 ```
-<link href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
-<script src="bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
+<link href="bower_components/angularjs-calendar/dist/css/angularjs-calendar.min.css" rel="stylesheet">
+<script src="bower_components/angularjs-calendar/dist/js/angularjs-calendar-tpls.min.js"></script>
 ```
 
 And finally add the module dependency in your AngularJS app (you can remove ui.bootstrap if you don't want the extra dependency - it is only required for collapse animations and tooltips):
@@ -76,18 +47,18 @@ angular.module('myApp', ['mwl.calendar', 'ui.bootstrap']);
 
 Alternatively you can install through npm:
 ```
-npm install --save angular-bootstrap-calendar
+npm install --save angularjs-calendar
 ```
 
 Or if using npm 3+ where peer dependencies aren't automatically installed:
 ```
-npm install --save angular-bootstrap-calendar angular bootstrap moment angular-ui-bootstrap
+npm install --save angularjs-calendar angular bootstrap moment angular-ui-bootstrap
 ```
 
 Then add as a dependency to your app:
 
 ```javascript
-angular.module('myApp', [require('angular-bootstrap-calendar'), require('angular-ui-bootstrap')]);
+angular.module('myApp', [require('angularjs-calendar'), require('angular-ui-bootstrap')]);
 ```
 
 ## Documentation
@@ -330,7 +301,7 @@ moment.locale('en_gb', {
 });
 ```
 
-For a full list of all available formats and their defaults see [calendarConfig.js](https://github.com/mattlewis92/angular-bootstrap-calendar/blob/master/src/services/calendarConfig.js)
+For a full list of all available formats and their defaults see [calendarConfig.js](https://github.com/mattlewis92/angularjs-calendar/blob/master/src/services/calendarConfig.js)
 
 ## Hiding the calendar
 When hiding the calendar it is recommended to use ng-if instead of ng-show/hide otherwise drag, drop, resize and date range selection will not work properly.
