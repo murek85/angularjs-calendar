@@ -94,13 +94,6 @@ angular
       }).length;
     }
 
-    function getBadgeTotalFromEvents(events) {
-      var event = events.find(function(e) {
-        return !!e;
-      });
-      return event ? event.badgeTotal : 0;
-    }
-
     function getWeekDayNames(excluded) {
       var weekdays = [0, 1, 2, 3, 4, 5, 6]
       .filter(function(wd) {
@@ -173,7 +166,7 @@ angular
         day.date = moment(day.date);
         day.label = day.date.date();
         day.fevents = events.fevents;
-        day.badgeTotal = getBadgeTotalFromEvents(day.events);
+        day.badgeTotal = day.badgeTotal;
         if (!calendarConfig.displayAllMonthEvents && !day.inMonth) {
           day.events = []; day.fevents = [];
         }
@@ -328,7 +321,7 @@ angular
       var dayViewStartM = moment(dayViewStart || '00:00', 'HH:mm');
       var dayViewEndM = moment(dayViewEnd || '23:59', 'HH:mm');
       var hourHeight = (60 / dayViewSplit) * (dayViewSegmentSize || 30);
-      return ((dayViewEndM.diff(dayViewStartM, 'minutes') / 60) * hourHeight) + 3;
+      return ((dayViewEndM.diff(dayViewStartM, 'minutes') / 60) * hourHeight) + 100;
     }
 
     function loadTemplates() {

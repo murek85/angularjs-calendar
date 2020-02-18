@@ -38,8 +38,8 @@
                 day.date < vm.dateRangeSelect.endDate }, day.cssClass]"
         ng-click="vm.onTimespanClick({calendarDate: day.date})"
         mwl-droppable
-        on-drop="vm.eventDropped(dropData.event, day.date)"
         mwl-drag-select="!!vm.onDateRangeSelect"
+        on-drop="vm.eventDropped(dropData.event, day.date)"
         on-drag-select-start="vm.onDragSelectStart(day.date)"
         on-drag-select-move="vm.onDragSelectMove(day.nextSegmentDate)"
         on-drag-select-end="vm.onDragSelectEnd(day.nextSegmentDate)">

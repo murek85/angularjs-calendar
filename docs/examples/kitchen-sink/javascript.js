@@ -24,7 +24,7 @@ angular
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-        badgeTotal: 10,
+        badgeTotal: 1,
         draggable: true,
         resizable: true,
         actions: actions
@@ -33,16 +33,16 @@ angular
         color: calendarConfig.colorTypes.info,
         startsAt: moment().subtract(1, 'day').toDate(),
         endsAt: moment().add(5, 'days').toDate(),
-        badgeTotal: 10,
+        badgeTotal: 1,
         draggable: true,
         resizable: true,
         actions: actions
       }, {
         title: 'This is a really long event title that occurs on every year',
         color: calendarConfig.colorTypes.important,
-        startsAt: moment().startOf('day').add(23, 'hours').add(30, 'minutes').toDate(),
+        startsAt: moment().startOf('day').add(23, 'hours').add(45, 'minutes').toDate(),
         endsAt: moment().startOf('day').add(24, 'hours').toDate(),
-        badgeTotal: 10,
+        badgeTotal: 1,
         recursOn: 'year',
         draggable: true,
         resizable: true,
