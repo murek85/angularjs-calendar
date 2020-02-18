@@ -166,7 +166,7 @@ angular
         day.date = moment(day.date);
         day.label = day.date.date();
         day.fevents = events.fevents;
-        day.badgeTotal = day.badgeTotal;
+        day.total = day.total;
         if (!calendarConfig.displayAllMonthEvents && !day.inMonth) {
           day.events = []; day.fevents = [];
         }
