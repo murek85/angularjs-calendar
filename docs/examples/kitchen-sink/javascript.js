@@ -33,7 +33,7 @@ angular
         color: calendarConfig.colorTypes.info,
         startsAt: moment().subtract(1, 'day').toDate(),
         endsAt: moment().add(5, 'days').toDate(),
-        badgeTotal: 1,
+        badgeTotal: 2,
         draggable: true,
         resizable: true,
         actions: actions

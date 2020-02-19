@@ -4128,6 +4128,13 @@ angular
       }).length;
     }
 
+    function getBadgeTotalFromEvents(events) {
+      var event = events.find(function(e) {
+        return !!e;
+      });
+      return event ? event.badgeTotal : 0;
+    }
+
     function getWeekDayNames(excluded) {
       var weekdays = [0, 1, 2, 3, 4, 5, 6]
       .filter(function(wd) {
@@ -4200,7 +4207,7 @@ angular
         day.date = moment(day.date);
         day.label = day.date.date();
         day.fevents = events.fevents;
-        day.badgeTotal = day.badgeTotal;
+        day.badgeTotal = getBadgeTotalFromEvents(day.events);
         if (!calendarConfig.displayAllMonthEvents && !day.inMonth) {
           day.events = []; day.fevents = [];
         }
