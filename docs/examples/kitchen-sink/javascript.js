@@ -18,13 +18,26 @@ angular
         alert.show('Deleted', args.calendarEvent);
       }
     }];
+    var totalEntries = [
+      { date: "2020-02-14", totalEntries: 1 },
+      { date: "2020-02-15", totalEntries: 1 },
+      { date: "2020-02-16", totalEntries: 1 },
+      { date: "2020-02-17", totalEntries: 1 },
+      { date: "2020-02-18", totalEntries: 2 },
+      { date: "2020-02-19", totalEntries: 3 },
+      { date: "2020-02-20", totalEntries: 3 },
+      { date: "2020-02-21", totalEntries: 2 },
+      { date: "2020-02-22", totalEntries: 2 },
+      { date: "2020-02-23", totalEntries: 2 },
+      { date: "2020-02-24", totalEntries: 1 }
+    ];
     vm.events = [
       {
         title: 'An event',
         color: calendarConfig.colorTypes.warning,
         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-        badgeTotal: 1,
+        totalEntries: totalEntries,
         draggable: true,
         resizable: true,
         actions: actions
@@ -33,7 +46,7 @@ angular
         color: calendarConfig.colorTypes.info,
         startsAt: moment().subtract(1, 'day').toDate(),
         endsAt: moment().add(5, 'days').toDate(),
-        badgeTotal: 2,
+        totalEntries: totalEntries,
         draggable: true,
         resizable: true,
         actions: actions
@@ -42,7 +55,7 @@ angular
         color: calendarConfig.colorTypes.important,
         startsAt: moment().startOf('day').add(23, 'hours').add(45, 'minutes').toDate(),
         endsAt: moment().startOf('day').add(24, 'hours').toDate(),
-        badgeTotal: 1,
+        totalEntries: totalEntries,
         recursOn: 'year',
         draggable: true,
         resizable: true,

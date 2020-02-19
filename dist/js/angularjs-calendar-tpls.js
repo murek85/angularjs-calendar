@@ -4128,11 +4128,22 @@ angular
       }).length;
     }
 
-    function getBadgeTotalFromEvents(events) {
-      var event = events.find(function(e) {
-        return !!e;
+    function getBadgeTotalFromEvents(day) {
+      var dayFormat = day.date.format('YYYY-MM-DD');
+      var eventDay = day.events.find(function(e) {
+        return moment(dayFormat).isBetween(
+          moment(e.startsAt).format('YYYY-MM-DD'), moment(e.endsAt).format('YYYY-MM-DD'), null, '[]');
       });
-      return event ? event.badgeTotal : 0;
+
+      if (eventDay) {
+        var entryEvent = eventDay.totalEntries.find(function(e) {
+          return moment(e.date, 'YYYY-MM-DD').isSame(moment(dayFormat, 'YYYY-MM-DD'));
+        });
+
+        return entryEvent ? entryEvent.totalEntries : 0;
+      }
+
+      return 0;
     }
 
     function getWeekDayNames(excluded) {
@@ -4207,7 +4218,7 @@ angular
         day.date = moment(day.date);
         day.label = day.date.date();
         day.fevents = events.fevents;
-        day.badgeTotal = getBadgeTotalFromEvents(day.events);
+        day.badgeTotal = getBadgeTotalFromEvents(day);
         if (!calendarConfig.displayAllMonthEvents && !day.inMonth) {
           day.events = []; day.fevents = [];
         }
