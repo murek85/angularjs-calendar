@@ -15,8 +15,8 @@
           href="javascript:;"
           class="event-item"
           ng-click="vm.onEventClick({calendarEvent: event})"
-          ng-mouseenter="vm.highlightEvent(event, true)"
-          ng-mouseleave="vm.highlightEvent(event, false)">
+          ng-mouseenter="vm.highlightEvent(event.startTime, event.endTime, event.color, true)"
+          ng-mouseleave="vm.highlightEvent(event.startTime, event.endTime, event.color, false)">
           <span ng-bind-html="isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml"></span>
         </a>
 

@@ -2595,7 +2595,18 @@ angular
     });
 
     $scope.$on('calendar.highlightEvent', function(event, data) {
-      vm.highlightEvent(data.event, data.shouldAddClass);
+      vm.view.forEach(function(day) {
+        delete day.highlightClass;
+        delete day.backgroundColor;
+        if (data.shouldAddClass) {
+          var dayContainsEvent = moment(day.date).isBetween(
+            moment(data.startTime).format('YYYY-MM-DD 00:00:00.000'),
+            moment(data.endTime).format('YYYY-MM-DD 23:59:59.999'), null, '[]');
+          if (dayContainsEvent) {
+            day.backgroundColor = data.color ? data.color.secondary : '';
+          }
+        }
+      });
     });
 
     vm.dayClicked = function(day, dayClickedFirstRun, $event) {
@@ -2637,7 +2648,6 @@ angular
           }
         }
       });
-
     };
 
     vm.handleEventDrop = function(event, newDayDate, draggedFromDate) {
@@ -2769,9 +2779,9 @@ angular
       });
     });
 
-    vm.highlightEvent = function(event, shouldAddClass) {
+    vm.highlightEvent = function(startTime, endTime, color, shouldAddClass) {
       $timeout(function() {
-        $rootScope.$broadcast('calendar.highlightEvent', {event: event, shouldAddClass: shouldAddClass});
+        $rootScope.$broadcast('calendar.highlightEvent', {startTime: startTime, endTime: endTime, color: color, shouldAddClass: shouldAddClass});
       });
     };
   }])

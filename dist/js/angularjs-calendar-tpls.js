@@ -1240,7 +1240,7 @@ module.exports = "<div class=\"cal-month-box\" ng-class=\"['cal-grid-' + vm.week
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cal-slide-box\" uib-collapse=\"vm.isCollapsed\" mwl-collapse-fallback=\"vm.isCollapsed\">\n  <div class=\"cal-slide-content cal-event-list\">\n    <ul class=\"unstyled list-unstyled\">\n\n      <li\n        ng-repeat=\"event in vm.events | orderBy:'startsAt' track by event.calendarEventId\"\n        ng-class=\"event.cssClass\"\n        ng-mousedown=\"$event.stopPropagation()\"\n        mwl-draggable=\"event.draggable === true\"\n        drop-data=\"{event: event}\"\n        auto-scroll=\"vm.draggableAutoScroll\">\n        <span class=\"pull-left event\" ng-style=\"{backgroundColor: event.color.primary}\"></span>\n        &nbsp;\n        <a\n          href=\"javascript:;\"\n          class=\"event-item\"\n          ng-click=\"vm.onEventClick({calendarEvent: event})\"\n          ng-mouseenter=\"vm.highlightEvent(event, true)\"\n          ng-mouseleave=\"vm.highlightEvent(event, false)\">\n          <span ng-bind-html=\"isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml\"></span>\n        </a>\n\n        <a\n          href=\"javascript:;\"\n          class=\"event-item-action\"\n          ng-class=\"action.cssClass\"\n          ng-repeat=\"action in event.actions track by $index\"\n          ng-bind-html=\"action.label | calendarTrustAsHtml\"\n          ng-click=\"action.onClick({calendarEvent: event})\">\n        </a>\n\n      </li>\n\n    </ul>\n  </div>\n</div>\n";
+module.exports = "<div class=\"cal-slide-box\" uib-collapse=\"vm.isCollapsed\" mwl-collapse-fallback=\"vm.isCollapsed\">\n  <div class=\"cal-slide-content cal-event-list\">\n    <ul class=\"unstyled list-unstyled\">\n\n      <li\n        ng-repeat=\"event in vm.events | orderBy:'startsAt' track by event.calendarEventId\"\n        ng-class=\"event.cssClass\"\n        ng-mousedown=\"$event.stopPropagation()\"\n        mwl-draggable=\"event.draggable === true\"\n        drop-data=\"{event: event}\"\n        auto-scroll=\"vm.draggableAutoScroll\">\n        <span class=\"pull-left event\" ng-style=\"{backgroundColor: event.color.primary}\"></span>\n        &nbsp;\n        <a\n          href=\"javascript:;\"\n          class=\"event-item\"\n          ng-click=\"vm.onEventClick({calendarEvent: event})\"\n          ng-mouseenter=\"vm.highlightEvent(event.startTime, event.endTime, event.color, true)\"\n          ng-mouseleave=\"vm.highlightEvent(event.startTime, event.endTime, event.color, false)\">\n          <span ng-bind-html=\"isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml\"></span>\n        </a>\n\n        <a\n          href=\"javascript:;\"\n          class=\"event-item-action\"\n          ng-class=\"action.cssClass\"\n          ng-repeat=\"action in event.actions track by $index\"\n          ng-bind-html=\"action.label | calendarTrustAsHtml\"\n          ng-click=\"action.onClick({calendarEvent: event})\">\n        </a>\n\n      </li>\n\n    </ul>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 17 */
@@ -2680,7 +2680,18 @@ angular
     });
 
     $scope.$on('calendar.highlightEvent', function(event, data) {
-      vm.highlightEvent(data.event, data.shouldAddClass);
+      vm.view.forEach(function(day) {
+        delete day.highlightClass;
+        delete day.backgroundColor;
+        if (data.shouldAddClass) {
+          var dayContainsEvent = moment(day.date).isBetween(
+            moment(data.startTime).format('YYYY-MM-DD 00:00:00.000'),
+            moment(data.endTime).format('YYYY-MM-DD 23:59:59.999'), null, '[]');
+          if (dayContainsEvent) {
+            day.backgroundColor = data.color ? data.color.secondary : '';
+          }
+        }
+      });
     });
 
     vm.dayClicked = function(day, dayClickedFirstRun, $event) {
@@ -2722,7 +2733,6 @@ angular
           }
         }
       });
-
     };
 
     vm.handleEventDrop = function(event, newDayDate, draggedFromDate) {
@@ -2854,9 +2864,9 @@ angular
       });
     });
 
-    vm.highlightEvent = function(event, shouldAddClass) {
+    vm.highlightEvent = function(startTime, endTime, color, shouldAddClass) {
       $timeout(function() {
-        $rootScope.$broadcast('calendar.highlightEvent', {event: event, shouldAddClass: shouldAddClass});
+        $rootScope.$broadcast('calendar.highlightEvent', {startTime: startTime, endTime: endTime, color: color, shouldAddClass: shouldAddClass});
       });
     };
   }])

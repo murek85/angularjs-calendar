@@ -63,7 +63,7 @@ angular
       }
     ];
 
-    vm.fevents = vm.events;
+    vm.fevents = [];
 
     vm.cellIsOpen = true;
 

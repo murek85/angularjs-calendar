@@ -18,9 +18,9 @@ angular
       });
     });
 
-    vm.highlightEvent = function(event, shouldAddClass) {
+    vm.highlightEvent = function(startTime, endTime, color, shouldAddClass) {
       $timeout(function() {
-        $rootScope.$broadcast('calendar.highlightEvent', {event: event, shouldAddClass: shouldAddClass});
+        $rootScope.$broadcast('calendar.highlightEvent', {startTime: startTime, endTime: endTime, color: color, shouldAddClass: shouldAddClass});
       });
     };
   })
