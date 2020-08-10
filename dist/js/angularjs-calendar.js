@@ -1,6 +1,6 @@
 /**
  * angularjs-calendar - A pure AngularJS bootstrap themed responsive calendar that can display events and has views for year, month, week and day
- * @version v0.0.1
+ * @version v0.0.3
  * @link https://github.com/murek85/angularjs-calendar
  * @license MIT
  */
@@ -2553,7 +2553,7 @@ var angular = __webpack_require__(0);
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', ["$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarMonthCtrl', ["$rootScope", "$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($rootScope, $scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -2575,7 +2575,6 @@ angular
     }
 
     $scope.$on('calendar.refreshView', function() {
-
       vm.weekDays = calendarHelper.getWeekDayNames(vm.excludedDays);
       var monthView = calendarHelper.getMonthView({events: vm.events, fevents: vm.fevents}, vm.viewDate, vm.cellModifier, vm.excludedDays);
       vm.view = monthView.days;
@@ -2593,6 +2592,10 @@ angular
         });
       }
 
+    });
+
+    $rootScope.$on('calendar.highlightEvent', function(event, data) {
+      vm.highlightEvent(data.event, data.shouldAddClass);
     });
 
     vm.dayClicked = function(day, dayClickedFirstRun, $event) {
@@ -2624,7 +2627,6 @@ angular
     };
 
     vm.highlightEvent = function(event, shouldAddClass) {
-
       vm.view.forEach(function(day) {
         delete day.highlightClass;
         delete day.backgroundColor;
@@ -2753,7 +2755,7 @@ var angular = __webpack_require__(0);
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarSlideBoxCtrl', ["$scope", "$timeout", "calendarConfig", "calendarEventTitle", function($scope, $timeout, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarSlideBoxCtrl', ["$rootScope", "$scope", "$timeout", "calendarConfig", "calendarEventTitle", function($rootScope, $scope, $timeout, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -2767,6 +2769,11 @@ angular
       });
     });
 
+    vm.highlightEvent = function(event, shouldAddClass) {
+      $timeout(function() {
+        $rootScope.$broadcast('calendar.highlightEvent', {event: event, shouldAddClass: shouldAddClass});
+      });
+    };
   }])
   .directive('mwlCalendarSlideBox', function() {
 

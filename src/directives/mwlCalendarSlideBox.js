@@ -4,7 +4,7 @@ var angular = require('angular');
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarSlideBoxCtrl', function($scope, $timeout, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarSlideBoxCtrl', function($rootScope, $scope, $timeout, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -18,6 +18,11 @@ angular
       });
     });
 
+    vm.highlightEvent = function(event, shouldAddClass) {
+      $timeout(function() {
+        $rootScope.$broadcast('calendar.highlightEvent', {event: event, shouldAddClass: shouldAddClass});
+      });
+    };
   })
   .directive('mwlCalendarSlideBox', function() {
 

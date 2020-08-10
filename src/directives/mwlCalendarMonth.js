@@ -4,7 +4,7 @@ var angular = require('angular');
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', function($scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarMonthCtrl', function($rootScope, $scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -26,7 +26,6 @@ angular
     }
 
     $scope.$on('calendar.refreshView', function() {
-
       vm.weekDays = calendarHelper.getWeekDayNames(vm.excludedDays);
       var monthView = calendarHelper.getMonthView({events: vm.events, fevents: vm.fevents}, vm.viewDate, vm.cellModifier, vm.excludedDays);
       vm.view = monthView.days;
@@ -44,6 +43,10 @@ angular
         });
       }
 
+    });
+
+    $rootScope.$on('calendar.highlightEvent', function(event, data) {
+      vm.highlightEvent(data.event, data.shouldAddClass);
     });
 
     vm.dayClicked = function(day, dayClickedFirstRun, $event) {
@@ -75,7 +78,6 @@ angular
     };
 
     vm.highlightEvent = function(event, shouldAddClass) {
-
       vm.view.forEach(function(day) {
         delete day.highlightClass;
         delete day.backgroundColor;

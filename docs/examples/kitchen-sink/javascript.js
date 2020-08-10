@@ -63,6 +63,8 @@ angular
       }
     ];
 
+    vm.fevents = vm.events;
+
     vm.cellIsOpen = true;
 
     vm.addEvent = function() {
