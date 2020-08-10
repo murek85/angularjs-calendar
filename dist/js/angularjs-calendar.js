@@ -2553,7 +2553,7 @@ var angular = __webpack_require__(0);
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', ["$rootScope", "$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($rootScope, $scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarMonthCtrl', ["$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -2594,7 +2594,7 @@ angular
 
     });
 
-    $rootScope.$on('calendar.highlightEvent', function(event, data) {
+    $scope.$on('calendar.highlightEvent', function(event, data) {
       vm.highlightEvent(data.event, data.shouldAddClass);
     });
 

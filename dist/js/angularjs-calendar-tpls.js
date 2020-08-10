@@ -1240,7 +1240,7 @@ module.exports = "<div class=\"cal-month-box\" ng-class=\"['cal-grid-' + vm.week
 /* 16 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cal-slide-box\" uib-collapse=\"vm.isCollapsed\" mwl-collapse-fallback=\"vm.isCollapsed\">\n  <div class=\"cal-slide-content cal-event-list\">\n    <ul class=\"unstyled list-unstyled\">\n\n      <li\n        ng-repeat=\"event in vm.events | orderBy:'startsAt' track by event.calendarEventId\"\n        ng-class=\"event.cssClass\"\n        ng-mousedown=\"$event.stopPropagation()\"\n        ng-mouseenter=\"vm.highlightEvent(event, true)\"\n        ng-mouseleave=\"vm.highlightEvent(event, false)\"\n        mwl-draggable=\"event.draggable === true\"\n        drop-data=\"{event: event}\"\n        auto-scroll=\"vm.draggableAutoScroll\">\n        <span class=\"pull-left event\" ng-style=\"{backgroundColor: event.color.primary}\"></span>\n        &nbsp;\n        <a\n          href=\"javascript:;\"\n          class=\"event-item\"\n          ng-click=\"vm.onEventClick({calendarEvent: event})\">\n          <span ng-bind-html=\"isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml\"></span>\n        </a>\n\n        <a\n          href=\"javascript:;\"\n          class=\"event-item-action\"\n          ng-class=\"action.cssClass\"\n          ng-repeat=\"action in event.actions track by $index\"\n          ng-bind-html=\"action.label | calendarTrustAsHtml\"\n          ng-click=\"action.onClick({calendarEvent: event})\">\n        </a>\n\n      </li>\n\n    </ul>\n  </div>\n</div>\n";
+module.exports = "<div class=\"cal-slide-box\" uib-collapse=\"vm.isCollapsed\" mwl-collapse-fallback=\"vm.isCollapsed\">\n  <div class=\"cal-slide-content cal-event-list\">\n    <ul class=\"unstyled list-unstyled\">\n\n      <li\n        ng-repeat=\"event in vm.events | orderBy:'startsAt' track by event.calendarEventId\"\n        ng-class=\"event.cssClass\"\n        ng-mousedown=\"$event.stopPropagation()\"\n        mwl-draggable=\"event.draggable === true\"\n        drop-data=\"{event: event}\"\n        auto-scroll=\"vm.draggableAutoScroll\">\n        <span class=\"pull-left event\" ng-style=\"{backgroundColor: event.color.primary}\"></span>\n        &nbsp;\n        <a\n          href=\"javascript:;\"\n          class=\"event-item\"\n          ng-click=\"vm.onEventClick({calendarEvent: event})\"\n          ng-mouseenter=\"vm.highlightEvent(event, true)\"\n          ng-mouseleave=\"vm.highlightEvent(event, false)\">\n          <span ng-bind-html=\"isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml\"></span>\n        </a>\n\n        <a\n          href=\"javascript:;\"\n          class=\"event-item-action\"\n          ng-class=\"action.cssClass\"\n          ng-repeat=\"action in event.actions track by $index\"\n          ng-bind-html=\"action.label | calendarTrustAsHtml\"\n          ng-click=\"action.onClick({calendarEvent: event})\">\n        </a>\n\n      </li>\n\n    </ul>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 17 */
@@ -2638,7 +2638,7 @@ var angular = __webpack_require__(0);
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', ["$rootScope", "$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($rootScope, $scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarMonthCtrl', ["$scope", "moment", "calendarHelper", "calendarConfig", "calendarEventTitle", function($scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -2679,7 +2679,7 @@ angular
 
     });
 
-    $rootScope.$on('calendar.highlightEvent', function(event, data) {
+    $scope.$on('calendar.highlightEvent', function(event, data) {
       vm.highlightEvent(data.event, data.shouldAddClass);
     });
 
