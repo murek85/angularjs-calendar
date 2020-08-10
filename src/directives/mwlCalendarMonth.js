@@ -4,7 +4,7 @@ var angular = require('angular');
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', function($rootScope, $scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
+  .controller('MwlCalendarMonthCtrl', function($scope, moment, calendarHelper, calendarConfig, calendarEventTitle) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;
@@ -45,7 +45,7 @@ angular
 
     });
 
-    $rootScope.$on('calendar.highlightEvent', function(event, data) {
+    $scope.$on('calendar.highlightEvent', function(event, data) {
       vm.highlightEvent(data.event, data.shouldAddClass);
     });
 

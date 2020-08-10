@@ -6,8 +6,6 @@
         ng-repeat="event in vm.events | orderBy:'startsAt' track by event.calendarEventId"
         ng-class="event.cssClass"
         ng-mousedown="$event.stopPropagation()"
-        ng-mouseenter="vm.highlightEvent(event, true)"
-        ng-mouseleave="vm.highlightEvent(event, false)"
         mwl-draggable="event.draggable === true"
         drop-data="{event: event}"
         auto-scroll="vm.draggableAutoScroll">
@@ -16,7 +14,9 @@
         <a
           href="javascript:;"
           class="event-item"
-          ng-click="vm.onEventClick({calendarEvent: event})">
+          ng-click="vm.onEventClick({calendarEvent: event})"
+          ng-mouseenter="vm.highlightEvent(event, true)"
+          ng-mouseleave="vm.highlightEvent(event, false)">
           <span ng-bind-html="isMonthView ? vm.calendarEventTitle.monthView(event) : vm.calendarEventTitle.yearView(event) | calendarTrustAsHtml"></span>
         </a>
 
